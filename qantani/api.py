@@ -168,7 +168,7 @@ class QantaniAPI:
             'Bank': bank_id,
             'Description': description,
             'Return': return_url,
-        }, './Response')
+        }, './Response')['Response']
 
     def check_transaction_status(self, transaction_id, transaction_code):
         """

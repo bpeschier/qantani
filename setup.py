@@ -6,10 +6,11 @@ with open('README.md') as file:
 setup(
     name='Qantani',
     version='0.1.dev1',
-    packages=['qantani',],
+    packages=['qantani', ],
     license='MIT',
     long_description=long_description,
     classifiers=[
         'Programming Language :: Python :: 3.3',
     ],
+    zip_safe=False,
 )
