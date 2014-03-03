@@ -91,10 +91,16 @@ class QantaniAPI:
 
         # Get response; verify SSL is correct(ish)
         response = requests.post(self.endpoint_url, data=request, verify=True)
+
+        if response.status_code != 200:
+            raise APIError('Qantani has an error')
+
         root = Tree.fromstring(response.text)
 
         # Check status
         status = root.find('Status')
+        if not status:
+            raise APIError('Qantani did not respond correctly')
         if not status.text == 'OK':
             raise APIError(root.find('.//Description').text)
 
