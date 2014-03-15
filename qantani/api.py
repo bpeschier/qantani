@@ -104,7 +104,7 @@ class QantaniAPI:
         # Check status
         status = root.find('Status')
         if status is None:
-            raise APIError('Qantani has an error in their XML')
+            raise APIError('Qantani does not follow their own API')
         if not status.text == 'OK':
             raise APIError(root.find('.//Description').text)
 
