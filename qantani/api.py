@@ -1,6 +1,7 @@
 import io
 import hashlib
 from xml.etree import ElementTree as Tree
+from xml.etree.ElementTree import ParseError
 
 import requests
 
@@ -95,12 +96,15 @@ class QantaniAPI:
         if response.status_code != 200:
             raise APIError('Qantani has an error')
 
-        root = Tree.fromstring(response.text)
+        try:
+            root = Tree.fromstring(response.text)
+        except ParseError:
+            raise APIError('Qantani delivered broken XML')
 
         # Check status
         status = root.find('Status')
         if not status:
-            raise APIError('Qantani did not respond correctly')
+            raise APIError("Qantani did not follow it's own API")
         if not status.text == 'OK':
             raise APIError(root.find('.//Description').text)
 
