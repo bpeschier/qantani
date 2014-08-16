@@ -86,8 +86,8 @@ class QantaniAPI:
 
         # Create request
         tree = Tree.ElementTree(transaction)
-        output = io.StringIO()
-        tree.write(output, encoding='unicode', xml_declaration=True)
+        output = io.BytesIO()
+        tree.write(output, encoding='utf-8', xml_declaration=True)
         request = {'data': output.getvalue()}
 
         # Get response; verify SSL is correct(ish)
